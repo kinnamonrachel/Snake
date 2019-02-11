@@ -16,7 +16,7 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener{
 	private int score = 0;
 	private static final long serialVersionUID = 1L;
 	
-	public static final int WIDTH = 500, HEIGHT = 550;
+	public static final int WIDTH = 800, HEIGHT = 650;
 	
 	private Thread thread;
 	
@@ -74,7 +74,7 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener{
 			snake.add(b);
 		}
 		ticks++;
-		if(ticks > 600000) {
+		if(ticks > 400000) {
 			if (right) xCoor++;
 			if (left) xCoor--;
 			if (up) yCoor--;
@@ -91,12 +91,12 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener{
 		}
 		
 		if(apples.size()==0) {
-			int xCoor = r.nextInt(19);
-			int yCoor = r.nextInt(19);
+			int xCoor = r.nextInt(31);
+			int yCoor = r.nextInt(22);
 			int i = 0;
 			while(xCoor == snake.get(i).getxCoor() && yCoor == snake.get(i).getyCoor()) {
-				xCoor = r.nextInt(19);
-				yCoor = r.nextInt(19);
+				xCoor = r.nextInt(31);
+				yCoor = r.nextInt(22);
 				i++;
 			}
 			apple = new Apple(xCoor, yCoor, 25);
@@ -124,7 +124,7 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener{
 			}
 		}
 		//collision on border
-		if(xCoor < 0 || xCoor > 19 || yCoor < 0 || yCoor > 19) {
+		if(xCoor < 0 || xCoor > 31 || yCoor < 0 || yCoor > 22) {
 			System.out.println("Game Over");
 			stop();
 		}
@@ -139,10 +139,13 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener{
 		g.setColor(Color.GRAY);
 		//g.drawString("SCORE: " + score, 220, 525);
 		for(int i = 0; i < WIDTH/25; i++) {
-			g.drawLine(i * 25, 0, i * 25, 500);
+			g.drawLine(i * 25, 0, i * 25, 600);
 		}
-		for(int i = 0; i < 500/25 + 1; i++) {
-			g.drawLine(0, i * 25, 500, i * 25);
+		for(int i = 0; i < 600/25 + 1; i++) {
+			if(i == 600/25) {
+				g.setColor(Color.RED);
+			}
+			g.drawLine(0, i * 25, 800, i * 25);
 		}
 		for (int i = 0; i < snake.size(); i++) {
 			snake.get(i).draw(g);
