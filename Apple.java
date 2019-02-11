@@ -18,6 +18,10 @@ public class Apple {
 	public void draw(Graphics g) {
 		g.setColor(Color.RED);
 		g.fillRect(xCoor * width, yCoor * height, width, height);
+		g.setColor(Color.GREEN);
+		g.fillRect(xCoor * width, yCoor * height, (width/5 * 3) , (height/5));
+		g.setColor(Color.RED);
+		g.fillRect(xCoor * width, yCoor * height, (width/5 * 2) , height/5);
 		
 	}
 

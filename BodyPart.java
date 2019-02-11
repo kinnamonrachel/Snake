@@ -11,6 +11,7 @@ public class BodyPart {
 		height = tileSize;
 	}
 	
+	
 	public void tick() {
 		
 	}
@@ -18,7 +19,8 @@ public class BodyPart {
 	public void draw(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.fillRect(xCoor * width, yCoor * height, width, height);
-		
+		g.setColor(Color.BLACK);
+		//g.fillRect(xCoor * width, yCoor * height, width/ 5, height/5 * 3);
 	}
 
 	public int getxCoor() {

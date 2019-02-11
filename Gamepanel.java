@@ -16,12 +16,12 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener{
 	private int score = 0;
 	private static final long serialVersionUID = 1L;
 	
-	public static final int WIDTH = 500, HEIGHT = 500;
+	public static final int WIDTH = 500, HEIGHT = 550;
 	
 	private Thread thread;
 	
 	private boolean running;
-	private boolean right = true, left = false, up = false, down = false, space = false;
+	private boolean right = true, left = false, up = false, down = false;
 	
 	private BodyPart b;
 	private ArrayList<BodyPart> snake;
@@ -31,7 +31,7 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener{
 	
 	private Random r;
 	
-	private int xCoor = 10, yCoor = 10, size = 2;
+	private int xCoor = 10, yCoor = 10, size = 4;
 	
 	private int ticks = 0;
 	
@@ -93,7 +93,12 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener{
 		if(apples.size()==0) {
 			int xCoor = r.nextInt(19);
 			int yCoor = r.nextInt(19);
-			
+			int i = 0;
+			while(xCoor == snake.get(i).getxCoor() && yCoor == snake.get(i).getyCoor()) {
+				xCoor = r.nextInt(19);
+				yCoor = r.nextInt(19);
+				i++;
+			}
 			apple = new Apple(xCoor, yCoor, 25);
 			apples.add(apple);
 		}
@@ -106,6 +111,7 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener{
 				
 				score++;
 				System.out.println("Score: " + score);
+				
 			}
 		}
 		//collision with self
@@ -131,11 +137,12 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		g.setColor(Color.GRAY);
+		//g.drawString("SCORE: " + score, 220, 525);
 		for(int i = 0; i < WIDTH/25; i++) {
-			g.drawLine(i * 25, 0, i * 25, HEIGHT);
+			g.drawLine(i * 25, 0, i * 25, 500);
 		}
-		for(int i = 0; i < HEIGHT/25; i++) {
-			g.drawLine(0, i * 25, HEIGHT, i * 25);
+		for(int i = 0; i < 500/25 + 1; i++) {
+			g.drawLine(0, i * 25, 500, i * 25);
 		}
 		for (int i = 0; i < snake.size(); i++) {
 			snake.get(i).draw(g);
@@ -143,6 +150,8 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener{
 		for(int i = 0; i < apples.size(); i++) {
 			apples.get(i).draw(g);
 		}
+		
+		
 	}
 
 
@@ -187,9 +196,6 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener{
 			down = true;
 			right = false;
 			left = false;
-		}
-		if(key == KeyEvent.VK_SPACE) {
-			space = true;
 		}
 	}
 
